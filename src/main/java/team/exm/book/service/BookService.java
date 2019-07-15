@@ -74,16 +74,17 @@ public class BookService {
      * */
 
     private ResponseEntity getList(BookVO book, int mark) {
-        if (book.getPage() == null || book.getPage() <= 0 || book.getRows() == null || book.getRows() <= 0) {
+        //在分页且需要分别请求时可用
+        /*if (book.getPage() == null || book.getPage() <= 0 || book.getRows() == null || book.getRows() <= 0) {
             re = new ResponseEntity(0, "您输入的信息有误");
             return re;
         }
+        book.setOffset((book.getPage() - 1) * book.getRows());*/
         book = setUserRole(book);
         if (book.getRole() == null) {
             re = new ResponseEntity(0, "当前用户无效");
             return re;
         }
-        book.setOffset((book.getPage() - 1) * book.getRows());
         List<Book> list;
         int num;
         switch (mark) {

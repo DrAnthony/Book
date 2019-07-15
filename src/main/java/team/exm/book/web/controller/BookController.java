@@ -53,8 +53,9 @@ public class BookController {
         return bs.querySelective(book);
     }
 
-    @PostMapping("/all")
-    public ResponseEntity searchAllBooks(@RequestBody BookVO book, HttpServletRequest request) {
+    @GetMapping("/all")
+    public ResponseEntity searchAllBooks(HttpServletRequest request) {
+        BookVO book = new BookVO();
         session = request.getSession();
         book.setUserID((Integer) session.getAttribute("user"));
         return bs.queryAll(book);

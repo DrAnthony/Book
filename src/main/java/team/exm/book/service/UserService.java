@@ -46,7 +46,7 @@ public class UserService {
     }
 
     public ResponseEntity selectByPhone(UserVO user) {
-        if (user.getPhone() == null || user.getPwd() == null || user.getRole() == null) {
+        if (user.getPhone() == null || user.getPwd() == null) {
             re = new ResponseEntity(0, "您输入的信息不完整，请重新输入");
         } else {
             User temp = um.selectByPhone(user.getPhone());
@@ -55,11 +55,12 @@ public class UserService {
             } else if (!temp.getPwd().equals(user.getPwd())) {
                 re = new ResponseEntity(0, "密码错误，请核实后重新输入");
             } else {
-                if (temp.getRole().equals(user.getRole())) {
+                re = new ResponseEntity(1, "成功", clearPassword(temp));
+                /*if (temp.getRole().equals(user.getRole())) {
                     re = new ResponseEntity(1, "成功", clearPassword(temp));
                 } else {
                     re = new ResponseEntity(0, "您选择的身份不匹配");
-                }
+                }*/
             }
         }
         return re;

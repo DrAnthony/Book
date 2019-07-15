@@ -51,11 +51,11 @@ public class StuBookService {
     }
 
     public ResponseEntity getRecords(Integer user, StuBookVO sbv) {
-        if (sbv.getPage() == null || sbv.getPage() <= 0 || sbv.getRows() == null || sbv.getRows() <= 0) {
+        /*if (sbv.getPage() == null || sbv.getPage() <= 0 || sbv.getRows() == null || sbv.getRows() <= 0) {
             re = new ResponseEntity(0, "您输入的信息有误");
             return re;
         }
-        sbv.setOffset((sbv.getPage() - 1) * sbv.getRows());
+        sbv.setOffset((sbv.getPage() - 1) * sbv.getRows());*/
         if (user == null && um.selectByPrimaryKey(user) == null) {
             re = new ResponseEntity(0, "当前用户无效");
         } else {
