@@ -1,18 +1,12 @@
 package team.exm.book.web.controller;
 
-import com.aliyuncs.RpcAcsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import team.exm.book.entity.StuBook;
-import team.exm.book.mapper.BookMapper;
 import team.exm.book.service.BookService;
 import team.exm.book.service.BookTypeService;
 import team.exm.book.service.PressService;
 import team.exm.book.service.StuBookService;
 import team.exm.book.web.request.BookVO;
-import team.exm.book.web.request.StuBookVO;
 import team.exm.book.web.response.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;

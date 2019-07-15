@@ -1,7 +1,6 @@
 package team.exm.book.web.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.print.Printer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import team.exm.book.web.response.ResponseEntity;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
-import java.util.ResourceBundle;
 
 @Component
 public class RequestInterceptor implements HandlerInterceptor {

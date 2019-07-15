@@ -2,10 +2,7 @@ package team.exm.book.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 import team.exm.book.entity.Book;
-import team.exm.book.entity.BookType;
-import team.exm.book.entity.StuBook;
 import team.exm.book.mapper.*;
 import team.exm.book.web.request.BookVO;
 import team.exm.book.web.response.ResponseEntity;

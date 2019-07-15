@@ -1,7 +1,5 @@
 package team.exm.book.web.response;
 
-import org.springframework.stereotype.Component;
-
 public class ResponseEntity<T> {
     private int code;
     private String msg;

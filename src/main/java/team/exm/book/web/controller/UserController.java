@@ -1,7 +1,6 @@
 package team.exm.book.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import team.exm.book.service.CommentsService;
