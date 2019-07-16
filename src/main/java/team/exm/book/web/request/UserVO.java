@@ -1,5 +1,6 @@
 package team.exm.book.web.request;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import team.exm.book.entity.User;
 
@@ -7,7 +8,8 @@ import team.exm.book.entity.User;
 public class UserVO extends User {
     private String code;
     private String newPwd;
-    private Integer operation;//0 发送短信，1 核实验证码，3 重置密码;
+
+    private Integer operation = -1;//0 发送短信，1 核实验证码，3 重置密码;
 
     public String getCode() {
         return code;
