@@ -1,5 +1,8 @@
 package team.exm.book.service;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.exm.book.entity.Code;
@@ -10,6 +13,7 @@ import team.exm.book.web.response.ResponseEntity;
 
 @Service
 public class CodeService {
+    private Logger log = LoggerFactory.getLogger(CodeService.class);
 
     private ResponseEntity re;
     @Autowired
@@ -37,8 +41,12 @@ public class CodeService {
             c.setPhone(phone);
             c.setCode(code);
             cm.insertSelective(c);
-            cts.setId(c.getId());
+            if (cts == null) {
+                log.info("cts is null");
+                cts = new CodeTimerService();
+            }
             cts.start();
+            cts.setId(c.getId());
             System.out.println("线程创建完成");
             re = new ResponseEntity(1, "验证码发送成功");
         } else {
