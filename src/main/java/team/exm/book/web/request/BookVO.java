@@ -11,9 +11,22 @@ public class BookVO extends Book {
     private Byte role;
     private boolean ensure;
 
-    private Integer bookytype;
+    private Integer booktype;
     private Integer bookpress;
 
+    public void forceCast(Book book) {
+        this.setId(book.getId());
+        this.setIsbn(book.getIsbn());
+        this.setRemain(book.getRemain());
+        this.setTotal(book.getTotal());
+        this.setAuthor(book.getAuthor());
+        this.setName(book.getName());
+        this.setDate(book.getDate());
+        this.setType(book.getType());
+        this.setVerified(book.getVerified());
+        this.setPrice(book.getPrice());
+        this.setPress(book.getPress());
+    }
     public Integer getUserID() {
         return userID;
     }
@@ -70,12 +83,12 @@ public class BookVO extends Book {
         this.page = page;
     }
 
-    public Integer getBookytype() {
-        return bookytype;
+    public Integer getBooktype() {
+        return booktype;
     }
 
-    public void setBookytype(Integer bookytype) {
-        this.bookytype = bookytype;
+    public void setBooktype(Integer booktype) {
+        this.booktype = booktype;
     }
 
     public Integer getBookpress() {

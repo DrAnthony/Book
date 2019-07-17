@@ -136,14 +136,17 @@ public class StuBookService {
 
     private void insertStuBook(StuBook sb) {
         um.updateByPrimaryKeySelective(sb.getsId());
-        bm.updateByPrimaryKeySelective((BookVO) sb.getbId());
+        BookVO temp = new BookVO();
+        temp.forceCast(sb.getbId());
+        bm.updateByPrimaryKeySelective(temp);
         sbm.insertSelective(sb);
     }
 
     private void updateStuBook(StuBook sb) {
         um.updateByPrimaryKeySelective(sb.getsId());
-        bm.updateByPrimaryKeySelective((BookVO) sb.getbId());
+        BookVO temp = new BookVO();
+        temp.forceCast(sb.getbId());
+        bm.updateByPrimaryKeySelective(temp);
         sbm.updateByPrimaryKeySelective(sb);
     }
-
 }

@@ -46,8 +46,8 @@ public class BookService {
     }
 
     private Boolean checkTypeAndPress(BookVO book) {
-        if (book.getBookytype() != null) {
-            if (btm.selectByPrimaryKey(book.getBookytype()) == null) {
+        if (book.getBooktype() != null) {
+            if (btm.selectByPrimaryKey(book.getBooktype()) == null) {
                 return false;
             }
         }
@@ -114,6 +114,7 @@ public class BookService {
     }
 
     public ResponseEntity addBook(BookVO book) {
+        Date now = new Date();
         book = setUserRole(book);
         if (book == null) {
             re = new ResponseEntity(0, "当前用户无效");
@@ -123,14 +124,15 @@ public class BookService {
             }
             if (book.getId() != null) {
                 re = new ResponseEntity(0, "您输入的信息不合法");
-            } else if (book.getName() == null) {
+            } else if (book.getName() == null && book.getDate() == null) {
                 re = new ResponseEntity(0, "您输入的书籍不完整");
             } else if (!checkTypeAndPress(book)) {
                 re = new ResponseEntity(0, "您输入的出版社信息或图书类型不合法");
             } else if (book.getPrice() != null && (book.getPrice() > 99999 || book.getPrice() < 0)) {
                 re = new ResponseEntity(0, "您输入的书籍价格有误");
+            } else if (now.getTime() - book.getDate().getTime() < 0) {
+                re = new ResponseEntity(0, "您输入的出版日期不合法");
             } else {
-                book.setDate(new Date());
                 bm.insertSelective(book);
                 re = new ResponseEntity(1, "添加成功");
             }
@@ -188,7 +190,7 @@ public class BookService {
 
     public ResponseEntity querySelective(BookVO book) {
         if ((book.getIsbn() == null || book.getIsbn().equals("")) && (book.getName() == null || book.getName().equals("")) &&
-                (book.getAuthor() == null || book.getAuthor().equals("")) && (book.getBookytype() == null)
+                (book.getAuthor() == null || book.getAuthor().equals("")) && (book.getBooktype() == null)
                 && (book.getBookpress() == null)) {
             re = new ResponseEntity(0, "您输入的条件不足");
             return re;
@@ -201,12 +203,12 @@ public class BookService {
     }
 
     public ResponseEntity updateSelective(BookVO book) {
+        Date now = new Date();
         if (book.getId() == null) {
             re = new ResponseEntity(0, "您输入的书籍信息有误");
             return re;
         }
-        Book temp = bm.selectByPrimaryKey(book.getId());
-        if (temp == null) {
+        if (bm.selectByPrimaryKey(book.getId()) == null) {
             re = new ResponseEntity(0, "您要修改的图书不存在");
         } else {
             if (!checkNum(book)) {
@@ -214,6 +216,8 @@ public class BookService {
             } else if (!checkTypeAndPress(book)) {
                 re = new ResponseEntity(0, "书籍出版社或类型不合法");
             } else if (book.getPrice() != null && (book.getPrice() > 99999 || book.getPrice() < 0)) {
+                re = new ResponseEntity(0, "您输入的书籍价格有误");
+            } else if (book.getDate() != null && (now.getTime() - book.getDate().getTime() < 0)) {
                 re = new ResponseEntity(0, "您输入的书籍价格有误");
             } else {
                 bm.updateByPrimaryKeySelective(book);
