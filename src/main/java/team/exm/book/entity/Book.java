@@ -19,7 +19,7 @@ public class Book {
 
     private Press press;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM")
     private Date date;
 
     private Integer total;
@@ -78,7 +78,7 @@ public class Book {
         this.press = press;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }
