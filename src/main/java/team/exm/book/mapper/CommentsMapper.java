@@ -1,7 +1,9 @@
 package team.exm.book.mapper;
 
+import org.springframework.stereotype.Repository;
 import team.exm.book.entity.Comments;
 
+@Repository
 public interface CommentsMapper {
     int deleteByPrimaryKey(Integer id);
 

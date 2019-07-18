@@ -1,9 +1,11 @@
 package team.exm.book.mapper;
 
+import org.springframework.stereotype.Repository;
 import team.exm.book.entity.BookType;
 
 import java.util.List;
 
+@Repository
 public interface BookTypeMapper {
     int deleteByPrimaryKey(Integer id);
 
