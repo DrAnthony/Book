@@ -113,8 +113,8 @@
             <if test="author!=null">
                 author like concat('%',#{author},'%') and
             </if>
-            <if test="bookytype!=null">
-                type=#{bookytype} and
+            <if test="booktype!=null">
+                type=#{booktype} and
             </if>
             <if test="bookpress!=null">
                 press=#{bookpress} and
@@ -147,8 +147,8 @@
             <if test="author!=null">
                 author like concat('%',#{author},'%') and
             </if>
-            <if test="bookytype!=null">
-                type=#{bookytype} and
+            <if test="booktype!=null">
+                type=#{booktype} and
             </if>
             <if test="bookpress!=null">
                 press=#{bookpress} and
@@ -158,22 +158,14 @@
             </if>
         </trim>
     </select>
-    <select id="selectVerify" parameterType="team.exm.book.web.request.BookVO" resultMap="BaseResultMap">
+    <select id="selectVerify" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from book
         where verified=false
         order by id
-        <trim prefix="limit" suffixOverrides=",">
-            <if test="offset!=null">
-                #{offset,jdbcType=INTEGER},
-            </if>
-            <if test="rows!=null">
-                #{rows,jdbcType=INTEGER},
-            </if>
-        </trim>
     </select>
-    <select id="selectVerifyNum" parameterType="team.exm.book.web.request.BookVO" resultType="java.lang.Integer">
+    <select id="selectVerifyNum" resultType="java.lang.Integer">
         select count(*)
         from book
         where verified = false;
@@ -187,7 +179,7 @@
         insert into book (id, isbn, type, name,
                           author, press, date, total,
                           remain, price, verified)
-        values (#{id,jdbcType=INTEGER}, #{isbn,jdbcType=CHAR}, #{bookytype,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        values (#{id,jdbcType=INTEGER}, #{isbn,jdbcType=CHAR}, #{booktype,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
                 #{author,jdbcType=VARCHAR}, #{bookpress.id,jdbcType=INTEGER}, #{date,jdbcType=DATE},
                 #{total,jdbcType=INTEGER},
                 #{remain,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{verified,jdbcType=BIT})
@@ -201,7 +193,7 @@
             <if test="isbn != null">
                 isbn,
             </if>
-            <if test="bookytype != null">
+            <if test="booktype != null">
                 type,
             </if>
             <if test="name != null">
@@ -236,8 +228,8 @@
             <if test="isbn != null">
                 #{isbn,jdbcType=CHAR},
             </if>
-            <if test="bookytypetype != null">
-                #{bookytype,jdbcType=INTEGER},
+            <if test="booktypetype != null">
+                #{booktype,jdbcType=INTEGER},
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
@@ -272,7 +264,7 @@
                 isbn = #{isbn,jdbcType=CHAR},
             </if>
             <if test="booktype != null">
-                type = #{bookytype,jdbcType=INTEGER},
+                type = #{booktype,jdbcType=INTEGER},
             </if>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
@@ -303,7 +295,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="team.exm.book.web.request.BookVO">
         update book
-        set type     = #{bookytype,jdbcType=INTEGER},
+        set type     = #{booktype,jdbcType=INTEGER},
             name     = #{name,jdbcType=VARCHAR},
             author   = #{author,jdbcType=VARCHAR},
             press    = #{bookpress,jdbcType=INTEGER},

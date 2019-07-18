@@ -66,9 +66,10 @@ public class BookController {
         return bs.updateSelective(book);
     }
 
-    @PostMapping("/getVerify")
-    public ResponseEntity getVerifiedList(@RequestBody BookVO book, HttpServletRequest request) {
+    @GetMapping("/getVerify")
+    public ResponseEntity getVerifiedList(HttpServletRequest request) {
         session = request.getSession();
+        BookVO book = new BookVO();
         book.setUserID((Integer) session.getAttribute("user"));
         return bs.getVerify(book);
     }

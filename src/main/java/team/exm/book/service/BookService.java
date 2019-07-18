@@ -101,8 +101,8 @@ public class BookService {
                 num = bm.selectByKeywordsNum(book);
                 break;
             default:
-                list = bm.selectVerify(book);
-                num = bm.selectVerifyNum(book);
+                list = bm.selectVerify();
+                num = bm.selectVerifyNum();
                 break;
         }
         if (list.size() == 0) {

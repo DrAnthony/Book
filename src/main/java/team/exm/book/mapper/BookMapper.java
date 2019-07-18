@@ -30,7 +30,7 @@ public interface BookMapper {
 
     int selectSeletiveNum(BookVO bookVO);
 
-    List<Book> selectVerify(BookVO bookVO);
+    List<Book> selectVerify();
 
-    Integer selectVerifyNum(BookVO bookVO);
+    Integer selectVerifyNum();
 }
