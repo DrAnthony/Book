@@ -224,7 +224,7 @@ public class UserService {
             temp.setId(id);
             temp.setPhoto(fileName);
             um.updateByPrimaryKeySelective(temp);
-            re = new ResponseEntity(1, "上传成功");
+            re = new ResponseEntity(1, fileName);
         } catch (Exception e) {
             e.printStackTrace();
             re = new ResponseEntity(0, "系统错误，文件上传失败");
