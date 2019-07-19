@@ -311,6 +311,9 @@
             <if test="verified != null">
                 verified = #{verified,jdbcType=BIT},
             </if>
+            <if test="bTimes != null ">
+                b_times = #{bTimes,jdbcType=INTEGER},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>

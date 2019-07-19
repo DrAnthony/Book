@@ -26,6 +26,7 @@ public class BookVO extends Book {
         this.setVerified(book.getVerified());
         this.setPrice(book.getPrice());
         this.setPress(book.getPress());
+        this.setbTimes(book.getbTimes());
     }
     public Integer getUserID() {
         return userID;
