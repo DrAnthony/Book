@@ -89,7 +89,7 @@ public class StuBookService {
                 re = new ResponseEntity(0, "该书籍库存不足");
                 return re;
             }
-            bTemp.setbTimes(bTemp.getbTimes());
+            bTemp.setbTimes(bTemp.getbTimes() + 1);
             bTemp.setRemain(bTemp.getRemain() - 1);
             Date date = new Date();
             Calendar calendar = Calendar.getInstance();
