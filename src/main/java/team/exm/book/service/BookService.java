@@ -261,4 +261,14 @@ public class BookService {
         return re;
     }
 
+    public ResponseEntity getRecommend(BookVO book) {
+        if (book.getUserID() == null | um.selectByPrimaryKey(book.getUserID()) == null) {
+            re = new ResponseEntity(0, "当前用户无效");
+            return re;
+        }
+        List<Book> list = bm.selectRecommend();
+        re = new ResponseEntity(1, "成功", list);
+        return re;
+    }
+
 }

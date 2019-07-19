@@ -88,4 +88,14 @@ public class BookController {
     public ResponseEntity getPress() {
         return ps.getPress();
     }
+
+    @GetMapping("/getRecommend")
+    public ResponseEntity getRecommend(HttpServletRequest request) {
+        session = request.getSession();
+        BookVO book = new BookVO();
+        book.setUserID((Integer) session.getAttribute("user"));
+        return bs.getRecommend(book);
+    }
+
+    ;
 }

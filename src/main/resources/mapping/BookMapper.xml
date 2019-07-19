@@ -171,6 +171,19 @@
         from book
         where verified = false;
     </select>
+    <select id="selectRecommend" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from book
+        order by b_times desc
+        limit 10
+    </select>
+    <select id="selectRecommendNum" resultMap="BaseResultMap">
+        select count(*)
+        from book
+        order by b_times desc
+        limit 10
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from book

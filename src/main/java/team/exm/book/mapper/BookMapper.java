@@ -33,4 +33,6 @@ public interface BookMapper {
     List<Book> selectVerify();
 
     Integer selectVerifyNum();
+
+    List<Book> selectRecommend();
 }
