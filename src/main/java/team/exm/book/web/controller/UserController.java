@@ -62,10 +62,10 @@ public class UserController {
         return cs.addComments((Integer) session.getAttribute("user"), comments);
     }
 
-    @PostMapping("/records")
-    public ResponseEntity records(@RequestBody StuBookVO sbv, HttpServletRequest request) {
+    @GetMapping("/records")
+    public ResponseEntity records(HttpServletRequest request) {
         session = request.getSession();
-        return sbs.getRecords((Integer) session.getAttribute("user"), sbv);
+        return sbs.getRecords((Integer) session.getAttribute("user"));
     }
 
     @PostMapping("/upload")

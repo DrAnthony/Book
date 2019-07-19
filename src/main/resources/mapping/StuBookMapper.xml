@@ -26,7 +26,7 @@
         <include refid="Base_Column_List"/>
         from stubook
         where s_id=#{sId.id,jdbcType=INTEGER}
-        order by id
+        order by isreturned,id
         <trim prefix="limit" suffixOverrides=",">
             <if test="offset!=null">
                 #{offset,jdbcType=INTEGER},

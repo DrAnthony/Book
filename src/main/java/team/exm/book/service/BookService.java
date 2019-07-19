@@ -134,7 +134,7 @@ public class BookService {
                 re = new ResponseEntity(0, "您输入的出版日期不合法");
             } else {
                 bm.insertSelective(book);
-                re = new ResponseEntity(1, "添加成功");
+                re = new ResponseEntity(1, "添加成功", bm.selectByPrimaryKey(book.getId()));
             }
         }
         return re;

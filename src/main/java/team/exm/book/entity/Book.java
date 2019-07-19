@@ -30,6 +30,8 @@ public class Book {
 
     private Boolean verified;
 
+    private Integer bTimes;
+
     public Integer getId() {
         return id;
     }
@@ -119,6 +121,14 @@ public class Book {
         this.verified = verified;
     }
 
+    public Integer getbTimes() {
+        return bTimes;
+    }
+
+    public void setbTimes(Integer bTimes) {
+        this.bTimes = bTimes;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -133,6 +143,7 @@ public class Book {
                 ", remain=" + remain +
                 ", price=" + price +
                 ", verified=" + verified +
+                ", bTimes=" + bTimes +
                 '}';
     }
 }

@@ -11,13 +11,14 @@
         <result column="remain" jdbcType="INTEGER" property="remain"/>
         <result column="price" jdbcType="DOUBLE" property="price"/>
         <result column="verified" jdbcType="BIT" property="verified"/>
+        <result column="b_times" jdbcType="INTEGER" property="bTimes"/>
         <association property="type" column="type" javaType="team.exm.book.entity.BookType"
                      select="team.exm.book.mapper.BookTypeMapper.selectByPrimaryKey"/>
         <association property="press" column="press" javaType="team.exm.book.entity.Press"
                      select="team.exm.book.mapper.PressMapper.selectByPrimaryKey"/>
     </resultMap>
     <sql id="Base_Column_List">
-        book.id, isbn, type, book.name, author, press, date, total, remain, price, verified
+        book.id, isbn, type, book.name, author, press, date, total, remain, price, verified, b_times
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -184,7 +185,8 @@
                 #{total,jdbcType=INTEGER},
                 #{remain,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{verified,jdbcType=BIT})
     </insert>
-    <insert id="insertSelective" parameterType="team.exm.book.web.request.BookVO">
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true"
+            parameterType="team.exm.book.web.request.BookVO">
         insert into book
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -220,6 +222,9 @@
             <if test="verified != null">
                 verified,
             </if>
+            <if test="bTimes != null">
+                b_times
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -228,7 +233,7 @@
             <if test="isbn != null">
                 #{isbn,jdbcType=CHAR},
             </if>
-            <if test="booktypetype != null">
+            <if test="booktype != null">
                 #{booktype,jdbcType=INTEGER},
             </if>
             <if test="name != null">
@@ -237,7 +242,7 @@
             <if test="author != null">
                 #{author,jdbcType=VARCHAR},
             </if>
-            <if test="bookpresspress != null">
+            <if test="bookpress != null">
                 #{bookpress,jdbcType=INTEGER},
             </if>
             <if test="date != null">
@@ -254,6 +259,9 @@
             </if>
             <if test="verified != null">
                 #{verified,jdbcType=BIT},
+            </if>
+            <if test="bTimes != null">
+                #{bTimes,jdbcType=BIT},
             </if>
         </trim>
     </insert>
@@ -303,7 +311,8 @@
             total    = #{total,jdbcType=INTEGER},
             remain   = #{remain,jdbcType=INTEGER},
             price    = #{price,jdbcType=DOUBLE},
-            verified = #{verified,jdbcType=BIT}
+            verified = #{verified,jdbcType=BIT},
+            b_times  = #{bTimes,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

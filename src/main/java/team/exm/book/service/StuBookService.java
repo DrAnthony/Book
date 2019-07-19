@@ -50,12 +50,13 @@ public class StuBookService {
         return re;
     }
 
-    public ResponseEntity getRecords(Integer user, StuBookVO sbv) {
+    public ResponseEntity getRecords(Integer user) {
         /*if (sbv.getPage() == null || sbv.getPage() <= 0 || sbv.getRows() == null || sbv.getRows() <= 0) {
             re = new ResponseEntity(0, "您输入的信息有误");
             return re;
         }
         sbv.setOffset((sbv.getPage() - 1) * sbv.getRows());*/
+        StuBookVO sbv = new StuBookVO();
         if (user == null && um.selectByPrimaryKey(user) == null) {
             re = new ResponseEntity(0, "当前用户无效");
         } else {
@@ -88,6 +89,7 @@ public class StuBookService {
                 re = new ResponseEntity(0, "该书籍库存不足");
                 return re;
             }
+            bTemp.setbTimes(bTemp.getbTimes());
             bTemp.setRemain(bTemp.getRemain() - 1);
             Date date = new Date();
             Calendar calendar = Calendar.getInstance();
