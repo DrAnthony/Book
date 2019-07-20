@@ -87,7 +87,6 @@ public class CodeService {
             int temp = (int) (Math.random() * 10);
             res += String.valueOf(temp);
         }
-        System.out.println("*******************CODE:" + res);
         return res;
     }
 }

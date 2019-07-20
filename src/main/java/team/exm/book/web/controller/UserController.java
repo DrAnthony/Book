@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import team.exm.book.service.CommentsService;
 import team.exm.book.service.StuBookService;
 import team.exm.book.service.UserService;
+import team.exm.book.web.request.CommentsVO;
 import team.exm.book.web.request.StuBookVO;
 import team.exm.book.web.request.UserVO;
 import team.exm.book.web.response.ResponseEntity;
@@ -60,6 +61,14 @@ public class UserController {
     public ResponseEntity comments(@RequestParam("comments") String comments, HttpServletRequest request) {
         session = request.getSession();
         return cs.addComments((Integer) session.getAttribute("user"), comments);
+    }
+
+    @GetMapping("/getComments")
+    public ResponseEntity getComments(HttpServletRequest request) {
+        session = request.getSession();
+        CommentsVO commentsVO = new CommentsVO();
+        commentsVO.setUserId((Integer) session.getAttribute("user"));
+        return cs.getComments(commentsVO);
     }
 
     @GetMapping("/records")

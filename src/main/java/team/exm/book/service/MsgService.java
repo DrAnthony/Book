@@ -50,11 +50,10 @@ public class MsgService {
         log.info(aliConfig.toString());
         try {
             CommonResponse response = client.getCommonResponse(request);
-            System.out.println(response.getData());
             if (response.getHttpStatus() == HttpStatus.SC_OK) {
-                System.out.println("验证码 " + code + " 发送成功");
+                log.info("验证码 " + code + " 发送成功");
             } else {
-                System.out.println("验证码发送失败");
+                log.info("验证码发送失败");
             }
         } catch (ServerException e) {
             e.printStackTrace();
