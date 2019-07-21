@@ -7,6 +7,7 @@ import team.exm.book.service.BookTypeService;
 import team.exm.book.service.PressService;
 import team.exm.book.service.StuBookService;
 import team.exm.book.web.request.BookVO;
+import team.exm.book.web.request.IdListVO;
 import team.exm.book.web.response.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +34,9 @@ public class BookController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity deleteBook(@RequestBody BookVO book, HttpServletRequest request) {
+    public ResponseEntity deleteBook(@RequestBody IdListVO idList, HttpServletRequest request) {
         session = request.getSession();
-        book.setUserID((Integer) session.getAttribute("user"));
-        return bs.deleteBook(book);
+        return bs.deleteBook(idList, (Integer) session.getAttribute("user"));
     }
 
     @PostMapping("/keyword")

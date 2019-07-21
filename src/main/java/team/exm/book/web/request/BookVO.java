@@ -9,7 +9,6 @@ public class BookVO extends Book {
     private Integer page;
     private Integer userID;
     private Byte role;
-    private boolean ensure;
 
     private Integer booktype;
     private Integer bookpress;
@@ -42,14 +41,6 @@ public class BookVO extends Book {
 
     public void setRole(Byte role) {
         this.role = role;
-    }
-
-    public boolean isEnsure() {
-        return ensure;
-    }
-
-    public void setEnsure(boolean ensure) {
-        this.ensure = ensure;
     }
 
     public String getKeyword() {
@@ -99,6 +90,5 @@ public class BookVO extends Book {
     public void setBookpress(Integer bookpress) {
         this.bookpress = bookpress;
     }
-
 
 }

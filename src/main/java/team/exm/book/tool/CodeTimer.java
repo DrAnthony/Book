@@ -2,9 +2,7 @@ package team.exm.book.tool;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import team.exm.book.mapper.CodeMapper;
-import team.exm.book.service.CodeService;
 import team.exm.book.service.CodeTimerService;
 
 public class CodeTimer extends Thread {

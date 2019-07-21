@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import team.exm.book.entity.Book;
 import team.exm.book.mapper.*;
 import team.exm.book.web.request.BookVO;
+import team.exm.book.web.request.IdListVO;
 import team.exm.book.web.response.ResponseEntity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -71,6 +73,7 @@ public class BookService {
      * @Param mark:1 queryWithKeywords
      *             2 querySelective
      *             3 queryAll
+     *             4 queryUnverified
      * */
 
     private ResponseEntity getList(BookVO book, int mark) {
@@ -140,29 +143,32 @@ public class BookService {
         return re;
     }
 
-    public ResponseEntity deleteBook(BookVO book) {
-        if (book.getId() == null) {
-            re = new ResponseEntity(0, "您当前操作的图书无效");
+    public ResponseEntity deleteBook(IdListVO list, Integer user) {
+        if (user == null) {
+            re = new ResponseEntity(0, "当前用户无效");
             return re;
         }
-        book = setUserRole(book);
-        if (book == null) {
-            re = new ResponseEntity(0, "当前用户无效");
-        } else {
-            if (book.getRole() == 1) {
-                re = new ResponseEntity(0, "您无权下架该图书");
+        if (um.selectByPrimaryKey(user).getRole() != 0) {
+            re = new ResponseEntity(0, "您无权下架该图书");
+            return re;
+        }
+        Integer[] idList = list.getIdList();
+        if (idList.length == 0) {
+            re = new ResponseEntity(0, "当前输入无效");
+            return re;
+        }
+        List<ResponseEntity> reList = new ArrayList<ResponseEntity>();
+        for (int i = 0; i < idList.length; i++) {
+            Book temp = bm.selectByPrimaryKey(idList[i]);
+            if (temp == null) {
+                reList.add(new ResponseEntity(0, "该图书不存在"));
+            } else if (temp.getRemain() < temp.getTotal()) {
+                reList.add(new ResponseEntity(0, "存在未被归还的图书，拒绝下架", temp));
             } else {
-                Book temp = bm.selectByPrimaryKey(book.getId());
-                if (temp == null) {
-                    re = new ResponseEntity(0, "该图书不存在");
-                } else if (temp.getRemain() < temp.getTotal() && !book.isEnsure()) {
-                    re = new ResponseEntity(0, "存在违背归还的图书，拒绝下架");
-                } else {
-                    bm.deleteByPrimaryKey(temp.getId());
-                    re = new ResponseEntity(1, "下架成功");
-                }
+                bm.deleteByPrimaryKey(temp.getId());
             }
         }
+        re = new ResponseEntity(1, "操作成功", reList);
         return re;
     }
 

@@ -7,7 +7,6 @@ import team.exm.book.service.CommentsService;
 import team.exm.book.service.StuBookService;
 import team.exm.book.service.UserService;
 import team.exm.book.web.request.CommentsVO;
-import team.exm.book.web.request.StuBookVO;
 import team.exm.book.web.request.UserVO;
 import team.exm.book.web.response.ResponseEntity;
 

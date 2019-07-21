@@ -11,8 +11,6 @@ import team.exm.book.web.response.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("/login")

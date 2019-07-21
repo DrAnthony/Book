@@ -1,7 +1,5 @@
 package team.exm.book.tool;
 
-import org.springframework.stereotype.Component;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
