@@ -11,6 +11,8 @@ import team.exm.book.web.response.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("/login")
@@ -23,7 +25,13 @@ public class LoginController {
 
     @PostMapping("/login.do")
     public ResponseEntity login(@RequestBody UserVO user, HttpServletRequest request) {
-        ResponseEntity re = us.selectByPhone(user);
+        ResponseEntity re = null;
+        try {
+            re = us.selectByPhone(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("md5加密错误");
+        }
         if (re.getCode() == 1) {
             session = request.getSession();
             session.setAttribute("user", ((User) re.getData()).getId());
