@@ -168,7 +168,7 @@ public class BookService {
                 bm.deleteByPrimaryKey(temp.getId());
             }
         }
-        re = new ResponseEntity(1, "操作成功", reList);
+        re = new ResponseEntity(1, String.valueOf(reList.size()), reList);
         return re;
     }
 
