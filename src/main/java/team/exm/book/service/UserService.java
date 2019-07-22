@@ -96,6 +96,7 @@ public class UserService {
                 if (um.selectByPhone(user.getPhone()) != null) {
                     re = new ResponseEntity(0, "该手机已经被使用");
                 } else {
+                    user.setBirthday(new Date());
                     um.insertSelective((User) user);
                     re = new ResponseEntity(1, "注册成功", clearPassword(um.selectByPrimaryKey(user.getId())));
                 }

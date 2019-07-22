@@ -227,7 +227,7 @@ public class BookService {
                 re = new ResponseEntity(0, "您输入的书籍价格有误");
             } else {
                 bm.updateByPrimaryKeySelective(book);
-                re = new ResponseEntity(1, "修改成功");
+                re = new ResponseEntity(1, "修改成功", bm.selectByPrimaryKey(book.getId()));
             }
         }
         return re;
