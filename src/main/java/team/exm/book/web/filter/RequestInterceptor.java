@@ -1,6 +1,8 @@
 package team.exm.book.web.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import team.exm.book.web.response.ResponseEntity;
@@ -12,6 +14,7 @@ import java.io.PrintWriter;
 
 @Component
 public class RequestInterceptor implements HandlerInterceptor {
+    private Logger log = LoggerFactory.getLogger(RequestInterceptor.class);
     private HttpSession session;
     private ResponseEntity re;
     private PrintWriter writer;
@@ -19,6 +22,11 @@ public class RequestInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //log.info("request path[{}] uri[{}]",request.getServletPath(),request.getRequestURI());
+        /*if(request.getServletPath().equals("/")){
+            response.sendRedirect("/index");
+            return false;
+        }*/
         session = request.getSession();
         if (session.getAttribute("user") == null) {
             response.setContentType("application/json;charset=utf-8");

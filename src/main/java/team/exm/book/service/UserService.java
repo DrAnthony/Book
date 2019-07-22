@@ -97,7 +97,7 @@ public class UserService {
                     re = new ResponseEntity(0, "该手机已经被使用");
                 } else {
                     um.insertSelective((User) user);
-                    re = new ResponseEntity(1, "注册成功", clearPassword((User) user));
+                    re = new ResponseEntity(1, "注册成功", clearPassword(um.selectByPrimaryKey(user.getId())));
                 }
             }
         }

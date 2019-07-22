@@ -19,9 +19,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
         List<String> list = new ArrayList();
         list.add("/login/**");
         list.add("/register/**");
-        list.add("/**/**.js");
-        list.add("/**/**.css");
-        list.add("/**/**.jpeg");
         registry.addInterceptor(filter).addPathPatterns("/**").excludePathPatterns(list);
     }
 }
