@@ -32,8 +32,9 @@ public class RequestInterceptor implements HandlerInterceptor {
             response.setContentType("application/json;charset=utf-8");
             writer = response.getWriter();
             mapper = new ObjectMapper();
-            re = new ResponseEntity(0, "登录信息无效");
+            re = new ResponseEntity(-1, "登录信息无效");
             writer.print(mapper.writeValueAsString(re));
+            //response.sendRedirect("/sign");
             return false;
         }
         return true;
