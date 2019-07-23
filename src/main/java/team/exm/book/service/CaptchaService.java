@@ -25,6 +25,13 @@ public class CaptchaService {
 
     public String addCaptcha(UserVO temp) {
         User user = um.selectByPhone(temp.getPhone());
+        Captcha c = cm.selectByUserId(user.getId());
+        if (c != null) {
+            if (checkDate(c.getDate())) {
+                return c.getCaptcha();
+            }
+            log.info("用户 id [{}} 的自动登录验证 [{}} 已过期", user.getId(), c.getCaptcha());
+        }
         String captchaStr;
         try {
             captchaStr = PasswordEncrypt.encodeByMd5(user.getPhone() + user.getPwd(), 1);
@@ -55,9 +62,7 @@ public class CaptchaService {
         if (temp == null) {
             return null;
         }
-        Date date = new Date();
-        long day = (date.getTime() - temp.getDate().getTime()) / (7 * 24 * 60 * 60 * 1000);
-        if (day <= 7) {
+        if (checkDate(temp.getDate())) {
             return temp;
         } else {
             return null;
@@ -67,6 +72,16 @@ public class CaptchaService {
     public void delete(Integer id) {
         if (cm.selectByUserId(id) != null) {
             cm.deleteByUserId(id);
+        }
+    }
+
+    public boolean checkDate(Date temp) {
+        Date date = new Date();
+        long day = (date.getTime() - temp.getTime()) / (7 * 24 * 60 * 60 * 1000);
+        if (day <= 7) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

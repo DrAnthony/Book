@@ -35,7 +35,7 @@ public class BookApplicationTests {
         for (int i = 0; i < 5; i++) {
             System.out.println("加密前：" + map[i]);
             try {
-                System.out.println("加密后：" + PasswordEncrypt.encodeByMd5(map[i], 10000));
+                System.out.println("加密后：" + PasswordEncrypt.encodeByMd5(map[i], 100000));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {

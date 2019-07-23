@@ -47,7 +47,7 @@ public class MsgService {
         request.putQueryParameter("SignName", aliConfig.getSignName());
         request.putQueryParameter("TemplateCode", aliConfig.getTemplateCode());
         request.putQueryParameter("TemplateParam", "{\"code\":\"" + code + "\"}");
-        log.info(aliConfig.toString());
+        //log.info(aliConfig.toString());
         try {
             CommonResponse response = client.getCommonResponse(request);
             if (response.getHttpStatus() == HttpStatus.SC_OK) {

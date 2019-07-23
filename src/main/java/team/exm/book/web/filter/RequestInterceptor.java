@@ -33,7 +33,7 @@ public class RequestInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("request path[{}] uri[{}]", request.getServletPath(), request.getRequestURI());
+        //log.info("request path[{}] uri[{}]", request.getServletPath(), request.getRequestURI());
         session = request.getSession();
         re = new ResponseEntity(-1, "登录信息无效");
         //session 存在用户信息 交给Controller
@@ -70,7 +70,16 @@ public class RequestInterceptor implements HandlerInterceptor {
             writer = response.getWriter();
             mapper = new ObjectMapper();
             writer.print(mapper.writeValueAsString(re));
+
             //response.sendRedirect("/sign");
+            return false;
+        }
+        if (request.getServletPath().equals("/captcha")) {
+            re = us.selectById((Integer) session.getAttribute("user"));
+            response.setContentType("application/json;charset=utf-8");
+            writer = response.getWriter();
+            mapper = new ObjectMapper();
+            writer.print(mapper.writeValueAsString(re));
             return false;
         }
         return true;
