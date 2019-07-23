@@ -8,6 +8,7 @@ import team.exm.book.entity.User;
 public class UserVO extends User {
     private String code;
     private String newPwd;
+    private Integer remember;//0 不记住密码，1 记住密码
 
     private Integer operation = -1;//0 发送短信，1 核实验证码，3 重置密码;
 
@@ -35,11 +36,21 @@ public class UserVO extends User {
         this.operation = operation;
     }
 
+    public Integer getRemember() {
+        return remember;
+    }
+
+    public void setRemember(Integer remember) {
+        this.remember = remember;
+    }
+
     @Override
     public String toString() {
         return "UserVO{" +
                 "code='" + code + '\'' +
                 ", newPwd='" + newPwd + '\'' +
+                ", remember=" + remember +
+                ", operation=" + operation +
                 '}';
     }
 }

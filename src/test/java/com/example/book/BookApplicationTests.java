@@ -35,7 +35,7 @@ public class BookApplicationTests {
         for (int i = 0; i < 5; i++) {
             System.out.println("加密前：" + map[i]);
             try {
-                System.out.println("加密后：" + PasswordEncrypt.encodeByMd5(map[i]));
+                System.out.println("加密后：" + PasswordEncrypt.encodeByMd5(map[i], 10000));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
@@ -48,7 +48,7 @@ public class BookApplicationTests {
     public void text1() throws UnsupportedEncodingException, NoSuchAlgorithmException {
         UserVO user = new UserVO();
         user.setPhone("13611111111");
-        user.setPwd(PasswordEncrypt.encodeByMd5("123456"));
+        user.setPwd(PasswordEncrypt.encodeByMd5("123456", 10000));
         System.out.println(us.selectByPhone(user).toString());
     }
 

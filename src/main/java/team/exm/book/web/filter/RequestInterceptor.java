@@ -3,10 +3,15 @@ package team.exm.book.web.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import team.exm.book.entity.Captcha;
+import team.exm.book.service.CaptchaService;
+import team.exm.book.service.UserService;
 import team.exm.book.web.response.ResponseEntity;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,19 +25,45 @@ public class RequestInterceptor implements HandlerInterceptor {
     private PrintWriter writer;
     private ObjectMapper mapper;
 
+    @Autowired
+    CaptchaService cs;
+    @Autowired
+    UserService us;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //log.info("request path[{}] uri[{}]",request.getServletPath(),request.getRequestURI());
-        /*if(request.getServletPath().equals("/")){
-            response.sendRedirect("/index");
-            return false;
-        }*/
+        log.info("request path[{}] uri[{}]", request.getServletPath(), request.getRequestURI());
         session = request.getSession();
+        re = new ResponseEntity(-1, "登录信息无效");
+        //session 存在用户信息 交给Controller
         if (session.getAttribute("user") == null) {
+            //session 不存在用户信息，检查cookie
+            Cookie[] cookies = request.getCookies();
+            String cookieStr = null;
+
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("CAPTCHA")) {
+                        cookieStr = cookie.getValue();
+                        break;
+                    }
+                }
+                if (cookieStr != null) {
+                    Captcha captcha = cs.getCaptcha(cookieStr);
+                    if (captcha != null) {
+                        session.setAttribute("user", captcha.getsId().getId());
+                        if (!request.getServletPath().equals("/captcha")) {
+                            return true;
+                        }
+                        re.setCode(1);
+                        re.setMsg("自动登录核验成功");
+                        re.setData(us.clearPassword(captcha.getsId()));
+                    }
+                }
+            }
             response.setContentType("application/json;charset=utf-8");
             writer = response.getWriter();
             mapper = new ObjectMapper();
-            re = new ResponseEntity(-1, "登录信息无效");
             writer.print(mapper.writeValueAsString(re));
             //response.sendRedirect("/sign");
             return false;

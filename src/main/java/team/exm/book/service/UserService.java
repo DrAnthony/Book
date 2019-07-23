@@ -30,8 +30,10 @@ public class UserService {
     UserMapper um;
     @Autowired
     CodeService cs;
+    @Autowired
+    CaptchaService captchaService;
 
-    private User clearPassword(User user) {
+    public User clearPassword(User user) {
         if (user.getPwd() != null) {
             user.setPwd(null);
         }
@@ -57,7 +59,7 @@ public class UserService {
                 re = new ResponseEntity(0, "该用户不存在");
             }
             //else if (!user.getPwd().equals(temp.getPwd()))
-            else if (!user.getPwd().equals(PasswordEncrypt.encodeByMd5(temp.getPwd()))) {
+            else if (!user.getPwd().equals(PasswordEncrypt.encodeByMd5(temp.getPwd(), 10000))) {
                 re = new ResponseEntity(0, "密码错误，请核实后重新输入");
             } else {
                 re = new ResponseEntity(1, "成功", clearPassword(temp));
@@ -149,6 +151,7 @@ public class UserService {
                 if (temp.getPwd().equals(user.getPwd())) {
                     temp.setPwd(user.getNewPwd());
                     um.updatePassword(temp);
+                    captchaService.delete(user.getId());
                     re = new ResponseEntity(1, "修改成功");
                 } else {
                     re = new ResponseEntity(0, "密码错误");
@@ -192,6 +195,7 @@ public class UserService {
                 User temp = um.selectByPhone(phone);
                 temp.setPwd(user.getNewPwd());
                 um.updatePassword(temp);
+                captchaService.delete(temp.getId());
                 re = new ResponseEntity(1, "密码重置成功");
             }
         } else {
