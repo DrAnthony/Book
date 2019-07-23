@@ -49,6 +49,7 @@ public class LoginController {
                     return re;
                 } else {
                     response.addCookie(new Cookie("CAPTCHA", cookieStr));
+                    re.setMsg(cookieStr);
                 }
             }
             session = request.getSession();
