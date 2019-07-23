@@ -13,5 +13,5 @@ public interface CaptchaMapper {
 
     void update(Captcha captcha);
 
-    void delete(Integer id);
+    void deleteByUserId(Integer id);
 }

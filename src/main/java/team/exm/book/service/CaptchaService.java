@@ -24,7 +24,7 @@ public class CaptchaService {
     CaptchaMapper cm;
 
     public String addCaptcha(UserVO temp) {
-        User user = um.selectByPrimaryKey(temp.getId());
+        User user = um.selectByPhone(temp.getPhone());
         String captchaStr;
         try {
             captchaStr = PasswordEncrypt.encodeByMd5(user.getPhone() + user.getPwd(), 1);
@@ -66,7 +66,7 @@ public class CaptchaService {
 
     public void delete(Integer id) {
         if (cm.selectByUserId(id) != null) {
-            cm.delete(id);
+            cm.deleteByUserId(id);
         }
     }
 }

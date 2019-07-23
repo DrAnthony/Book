@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class PasswordEncrypt {
 
-    public static String encodeByMd5(String string, int time) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static String encodeByMd5(String string, long time) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // 确定计算方法
         MessageDigest md5 = MessageDigest.getInstance("MD5");
         Base64.Encoder base64Encoder = Base64.getEncoder();

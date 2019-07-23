@@ -39,7 +39,7 @@
             <if test=" captcha!=null">
                 captcha,
             </if>
-            <if test=" date != nul ">
+            <if test=" date != null ">
                 date,
             </if>
         </trim>

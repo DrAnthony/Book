@@ -48,8 +48,8 @@ public class BookApplicationTests {
     public void text1() throws UnsupportedEncodingException, NoSuchAlgorithmException {
         UserVO user = new UserVO();
         user.setPhone("13611111111");
-        user.setPwd(PasswordEncrypt.encodeByMd5("123456", 10000));
-        System.out.println(us.selectByPhone(user).toString());
+        user.setPwd(PasswordEncrypt.encodeByMd5("4QrcOUm6Wau+VuBX8g+IPg==", 100000));
+        System.out.println(user.getPwd());
     }
 
 }

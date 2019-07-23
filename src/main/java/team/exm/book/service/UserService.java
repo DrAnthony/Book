@@ -60,6 +60,7 @@ public class UserService {
             }
             //else if (!user.getPwd().equals(temp.getPwd()))
             else if (!user.getPwd().equals(PasswordEncrypt.encodeByMd5(temp.getPwd(), 10000))) {
+                //log.info(PasswordEncrypt.encodeByMd5(temp.getPwd(), 100000));
                 re = new ResponseEntity(0, "密码错误，请核实后重新输入");
             } else {
                 re = new ResponseEntity(1, "成功", clearPassword(temp));
