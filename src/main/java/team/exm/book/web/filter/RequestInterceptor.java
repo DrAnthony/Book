@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 
 @Component
 public class RequestInterceptor implements HandlerInterceptor {
@@ -44,8 +45,10 @@ public class RequestInterceptor implements HandlerInterceptor {
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("CAPTCHA")) {
-                        log.info("the cookie name is [{}], value is [{}]", cookie.getName(), cookie.getValue());
-                        cookieStr = cookie.getValue();
+                        //log.info("the cookie name is [{}], value is [{}]", cookie.getName(), cookie.getValue());
+                        //cookieStr = cookie.getValue();
+                        //对前端传入的特殊字符解码
+                        cookieStr = URLDecoder.decode(cookie.getValue(), "UTF-8");
                         break;
                     }
                 }
