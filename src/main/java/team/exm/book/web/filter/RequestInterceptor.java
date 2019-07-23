@@ -44,6 +44,7 @@ public class RequestInterceptor implements HandlerInterceptor {
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("CAPTCHA")) {
+                        log.info("the cookie name is [{}], value is [{}]", cookie.getName(), cookie.getValue());
                         cookieStr = cookie.getValue();
                         break;
                     }
@@ -59,6 +60,7 @@ public class RequestInterceptor implements HandlerInterceptor {
                         re.setMsg("自动登录核验成功");
                         re.setData(us.clearPassword(captcha.getsId()));
                     }
+                    log.info("cookie is wrong:the request captcha is [{}]", cookieStr);
                 }
             }
             response.setContentType("application/json;charset=utf-8");

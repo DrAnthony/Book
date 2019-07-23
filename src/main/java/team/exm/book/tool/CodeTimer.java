@@ -48,11 +48,11 @@ public class CodeTimer extends Thread {
             }
             if (stop) {
                 log.info("线程以正常退出");
-                return;
+                break;
             }
         }
         if (cm == null) {
-            log.info("cs is null");
+            log.info("cm is null");
         }
         cm.deleteByPrimaryKey(codeId);
         log.info("验证码成功删除");
