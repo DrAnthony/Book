@@ -197,7 +197,7 @@ public class BookService {
     public ResponseEntity querySelective(BookVO book) {
         if ((book.getIsbn() == null || book.getIsbn().equals("")) && (book.getName() == null || book.getName().equals("")) &&
                 (book.getAuthor() == null || book.getAuthor().equals("")) && (book.getBooktype() == null)
-                && (book.getBookpress() == null)) {
+                && (book.getBookpress() == null) && (book.getDate() == null)) {
             re = new ResponseEntity(0, "您输入的条件不足");
             return re;
         }
