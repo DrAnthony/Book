@@ -62,8 +62,9 @@ public class RequestInterceptor implements HandlerInterceptor {
                         re.setCode(1);
                         re.setMsg("自动登录核验成功");
                         re.setData(us.clearPassword(captcha.getsId()));
+                    } else {
+                        log.info("cookie is wrong:the request captcha is [{}]", cookieStr);
                     }
-                    log.info("cookie is wrong:the request captcha is [{}]", cookieStr);
                 }
             }
             response.setContentType("application/json;charset=utf-8");
