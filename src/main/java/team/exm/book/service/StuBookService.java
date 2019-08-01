@@ -1,7 +1,10 @@
 package team.exm.book.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import team.exm.book.entity.Book;
 import team.exm.book.entity.StuBook;
 import team.exm.book.entity.User;
@@ -18,6 +21,7 @@ import java.util.List;
 
 @Service
 public class StuBookService {
+    private static Logger log = LoggerFactory.getLogger(StuBookService.class);
     private ResponseEntity re;
     private StuBook sb;
     @Autowired
@@ -101,7 +105,13 @@ public class StuBookService {
             sb.setbId(bTemp);
             sb.setbDate(date);
             sb.setrDate(deadline);
-            insertStuBook(sb);
+            try {
+                insertStuBook(sb);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                re = new ResponseEntity(0, "系统异常");
+                return re;
+            }
             re = new ResponseEntity(1, "借书成功");
             return re;
         }
@@ -130,13 +140,20 @@ public class StuBookService {
             sb.setReturned(true);
             sb.setsId(uTemp);
             sb.setbId(bTemp);
-            updateStuBook(sb);
+            try {
+                updateStuBook(sb);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                re = new ResponseEntity(0, "系统异常");
+                return re;
+            }
             re = new ResponseEntity(1, "还书成功");
         }
         return re;
     }
 
-    private void insertStuBook(StuBook sb) {
+    @Transactional
+    public void insertStuBook(StuBook sb) throws RuntimeException {
         um.updateByPrimaryKeySelective(sb.getsId());
         BookVO temp = new BookVO();
         temp.forceCast(sb.getbId());
@@ -144,7 +161,8 @@ public class StuBookService {
         sbm.insertSelective(sb);
     }
 
-    private void updateStuBook(StuBook sb) {
+    @Transactional
+    public void updateStuBook(StuBook sb) throws RuntimeException {
         um.updateByPrimaryKeySelective(sb.getsId());
         BookVO temp = new BookVO();
         temp.forceCast(sb.getbId());
