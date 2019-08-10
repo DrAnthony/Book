@@ -13,6 +13,7 @@ import team.exm.book.web.response.ResponseEntity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@CrossOrigin(allowCredentials = "true")
 @RestController
 @RequestMapping("/user")
 public class UserController {

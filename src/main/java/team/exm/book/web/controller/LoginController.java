@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 
+@CrossOrigin(allowCredentials = "true")
 @RestController
 @RequestMapping("/login")
 public class LoginController {
